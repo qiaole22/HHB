@@ -1,0 +1,139 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Haushaltsbuch</title><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="theme-color" content="#234F76">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;font:16px system-ui,sans-serif;background:#f3f5f8;color:#222}
+header{position:sticky;top:0;z-index:5;display:flex;gap:4px;align-items:center;padding:8px 8px;padding-top:calc(8px + env(safe-area-inset-top));background:#234F76;color:#fff}
+header b{min-width:120px;text-align:center;text-transform:capitalize;font-size:17px}header .sp{flex:1}
+button{font:inherit;border:0;border-radius:10px;background:none;color:inherit;cursor:pointer}header button{font-size:20px;padding:6px 10px}
+main{max-width:760px;margin:auto;padding:10px;padding-bottom:calc(100px + env(safe-area-inset-bottom))}body[data-v=t] main{max-width:1250px}
+.card{background:#fff;border-radius:14px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px #0002}h3{margin:0 0 6px;font-size:14px;color:#596984}
+.hero{background:#234F76;color:#fff;text-align:center}.hero small{opacity:.8}.hero b{display:block;font-size:34px;margin:2px 0 8px}.hero .neg{color:#ffb4ab}
+.bar{height:8px;background:#fff3;border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;background:#84B1F7}.hs{display:flex;justify-content:space-around;font-size:13px;margin-top:8px}
+.cr{display:grid;grid-template-columns:1fr auto;margin:0;padding:7px 0}.cr u{grid-column:1/3;height:5px;background:#eef1f5;border-radius:3px;margin-top:4px;overflow:hidden}.cr u i{display:block;height:100%;background:#234F76}
+.dh{display:flex;justify-content:space-between;font-size:13px;color:#596984;padding:10px 2px 4px;font-weight:600}.dh:first-child{padding-top:0}
+.tx{display:flex;align-items:center;gap:10px;padding:8px 2px;cursor:pointer}.ic{font-size:22px;width:38px;height:38px;border-radius:50%;background:#eef1f5;display:grid;place-items:center}.td{flex:1;min-width:0}.td small{display:block;color:#888;font-size:12px}.pos{color:#1b8a5a}
+.ln{display:flex;justify-content:space-between;align-items:center;padding:8px 2px;border-bottom:1px solid #eee}.ln input{width:130px;text-align:right;font:inherit;padding:8px;border:1px solid #ccc;border-radius:8px}
+.mu{color:#888}.neg{color:#c00}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:flex-end;background:#fff;box-shadow:0 -1px 6px #0003;padding-bottom:env(safe-area-inset-bottom);z-index:6}
+nav button{flex:1;padding:8px 0 6px;font-size:11px;color:#777;display:flex;flex-direction:column;align-items:center}nav button span{font-size:21px}nav .on{color:#234F76;font-weight:700}
+nav #add{flex:0 0 62px;height:62px;margin:0 8px 12px;border-radius:50%;background:#234F76;color:#fff;font-size:34px;padding:0;box-shadow:0 3px 8px #0005;justify-content:center}
+#ov{position:fixed;inset:0;background:#0006;z-index:10;display:none;align-items:flex-end;justify-content:center}#ov.on{display:flex}
+#sheet{background:#fff;width:100%;max-width:520px;max-height:96vh;overflow:auto;border-radius:18px 18px 0 0;padding:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+.sg{display:flex;background:#eef1f5;border-radius:10px;padding:3px;margin-bottom:6px}.sg button{flex:1;padding:8px}.sg .on{background:#234F76;color:#fff}
+.amt{text-align:center;font-size:40px;font-weight:700;padding:4px}.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:4px 0}
+.cg button,.dr button{background:#eef1f5;padding:6px 2px;font-size:12px;line-height:1.2}.cg span{display:block;font-size:20px}.cg .on,.dr .on{background:#234F76;color:#fff}
+.dr{display:flex;gap:6px;margin:6px 0}.dr button{flex:0 0 76px;font-size:14px;padding:10px 0}.dr input{flex:1}
+#sheet input{font:inherit;padding:10px;border:1px solid #ccc;border-radius:10px;width:100%;min-width:0}#sn{margin-bottom:6px}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.pad button{background:#f3f5f8;font-size:22px;height:46px}
+.ac{display:flex;gap:8px;margin-top:8px}.ac button{background:#234F76;color:#fff;flex:1;height:50px;font-size:17px}.ac #sdel{flex:0 0 60px;background:#b3261e}
+.tw{overflow:auto;max-height:75vh;background:#fff;border-radius:10px}table{border-collapse:collapse;font-size:12px;white-space:nowrap}
+th{background:#234F76;color:#fff;padding:5px;position:sticky;top:0;z-index:2;white-space:normal;min-width:44px}th.g{background:#596984}th:first-child{left:0;z-index:3;min-width:28px}
+td{padding:3px 5px;border:1px solid #fff;vertical-align:top;cursor:pointer}tr:nth-child(even) td{background:#eaeaea}td.n{text-align:right}tr.ft td{background:#99CCFF!important;font-weight:700}
+dialog{border:0;border-radius:12px;width:min(420px,92vw)}dialog label{display:block;margin:8px 0 2px;font-size:13px}dialog input{font:inherit;padding:8px;border:1px solid #bbb;border-radius:8px;width:100%}
+dialog button{display:block;width:100%;margin-top:8px;padding:12px;background:#596984;color:#fff}dialog p{margin:8px 0;font-size:14px}dialog .row{display:flex;gap:8px}dialog .row button{flex:1;padding:10px;background:#596984;color:#fff}dialog .pri{background:#234F76!important}
+</style></head><body>
+<header><button id="pm">‹</button><b id="ml"></b><button id="nm">›</button><span class="sp"></span><button id="sy">⟳</button><button id="cf">⚙</button><button id="ex" title="Excel-Export">⬇</button></header>
+<main id="v"></main>
+<nav><button data-v="o"><span>📊</span>Übersicht</button><button data-v="l"><span>🧾</span>Buchungen</button><button id="add">＋</button><button data-v="t"><span>📅</span>Tabelle</button><button data-v="k"><span>🏦</span>Konten</button></nav>
+<div id="ov"><div id="sheet"></div></div>
+<dialog id="dg"></dialog>
+<script src="exceljs.min.js"></script>
+<script>
+const CATS=[["wohnung","Wohnung / Internet / Fernsehen"],["transport","Transport"],["sport","Entertainment / Sport"],["kleidung","Kleidung / Körperpflege / Gesundheit"],["food","Lebensmittel"],["rest","Restaurants"],["out","Ausgehen / Freizeit"],["geschenke","Geschenke"],["urlaub","Urlaub"]];
+const EM={wohnung:'🏠',transport:'🚗',sport:'🎬',kleidung:'👕',food:'🛒',rest:'🍽️',out:'🎉',geschenke:'🎁',urlaub:'✈️'},SH={wohnung:'Wohnen & Internet',transport:'Transport',sport:'Entertainment & Sport',kleidung:'Kleidung & Gesundheit',food:'Lebensmittel',rest:'Restaurant',out:'Ausgehen',geschenke:'Geschenke',urlaub:'Urlaub'};
+const ACC=["Checking","Saving","Anlagen","PayPal","ABN Amro","Cash"],AE={Checking:'🏦',Saving:'🐷',Anlagen:'📈',PayPal:'🅿️','ABN Amro':'🏛️',Cash:'💶'};
+const $=i=>document.getElementById(i),fm=n=>n.toLocaleString('de-DE',{style:'currency',currency:'EUR'}),sm=a=>a.reduce((p,x)=>p+x.a,0),
+esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),p2=n=>String(n).padStart(2,'0'),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+let S=JSON.parse(localStorage.hb||'{"e":{},"i":{},"s":{}}'),cfg=JSON.parse(localStorage.hbcfg||'{}'),view='o',tm,sh={};
+const ds=o=>{const d=new Date();d.setDate(d.getDate()-o);return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())};
+let month=ds(0).slice(0,7);
+const E=()=>Object.values(S.e).filter(x=>!x.x&&x.m==month),I=()=>Object.values(S.i).filter(x=>!x.x&&x.m==month);
+const pmo=k=>{const[y,m]=month.split('-'),d=new Date(y,m-1+k);return d.getFullYear()+'-'+p2(d.getMonth()+1)};
+function save(){localStorage.hb=JSON.stringify(S);render();clearTimeout(tm);tm=setTimeout(sync,1500)}
+const dayLbl=d=>new Date(month.split('-')[0],month.split('-')[1]-1,d).toLocaleDateString('de-DE',{weekday:'short',day:'numeric',month:'short'});
+function over(e,i){const ex=sm(e),inc=sm(i),left=inc-ex,pc=inc?Math.min(100,ex/inc*100):ex?100:0,tot=c=>sm(e.filter(x=>x.c==c)),mx=Math.max(1,...CATS.map(c=>tot(c[0])));
+const cr=CATS.filter(c=>tot(c[0])).sort((a,b)=>tot(b[0])-tot(a[0])).map(c=>`<p class="cr"><span>${EM[c[0]]} ${SH[c[0]]}</span><b>${fm(tot(c[0]))}</b><u><i style="width:${tot(c[0])/mx*100}%"></i></u></p>`).join('');
+return `<div class="card hero"><small>Noch verfügbar</small><b class="${left<0?'neg':''}">${fm(left)}</b><div class="bar"><i style="width:${pc}%"></i></div><div class="hs"><span>⬆ ${fm(inc)}</span><span>⬇ ${fm(ex)}</span></div></div><div class="card"><h3>Ausgaben nach Kategorie</h3>${cr||'<p class="mu">Noch keine Ausgaben – tippe auf ＋</p>'}</div>`}
+function list(e,i){const all=[...e.map(x=>({...x,k:'e'})),...i.map(x=>({...x,k:'i',d:x.d||1}))].sort((a,b)=>b.d-a.d||b.u-a.u);
+if(!all.length)return '<p class="mu" style="text-align:center;margin:30px 0">Noch keine Buchungen.<br>Tippe auf ＋</p>';let h='',cur=0;
+for(const x of all){if(x.d!=cur){cur=x.d;const t=all.filter(z=>z.d==cur).reduce((p,z)=>p+(z.k=='i'?z.a:-z.a),0);h+=`<div class="dh"><span>${dayLbl(cur)}</span><span>${t>0?'+':''}${fm(t)}</span></div>`}
+const inc=x.k=='i';h+=`<div class="tx" data-id="${x.id}"><span class="ic">${inc?'💰':EM[x.c]}</span><span class="td">${esc(x.t)||(inc?'Einnahme':SH[x.c])}<small>${inc?'Einnahme':SH[x.c]}</small></span><b class="${inc?'pos':''}">${inc?'+':'−'}${fm(x.a)}</b></div>`}return h}
+function table(e){const[y,m]=month.split('-'),n=new Date(y,m,0).getDate();let rem=sm(I()),tot=0,h='<div class="tw"><table><tr><th></th>'+CATS.map(c=>`<th colspan="2">${c[1]}</th>`).join('')+'<th class="g">Daily Total</th><th class="g">Remaining</th><th class="g">Total Spent</th></tr>';
+for(let d=1;d<=n;d++){const de=e.filter(x=>x.d==d),dy=sm(de);rem-=dy;tot+=dy;
+h+=`<tr><th>${d}</th>`+CATS.map(c=>{const l=de.filter(x=>x.c==c[0]),sp=f=>l.map(x=>`<span data-id="${x.id}">${f(x)}</span>`).join('<br>');return `<td data-d="${d}" data-c="${c[0]}">${sp(x=>esc(x.t)||'·')}</td><td class="n" data-d="${d}" data-c="${c[0]}">${sp(x=>x.a.toFixed(2))}</td>`}).join('')+`<td class="n">${dy?dy.toFixed(2):''}</td><td class="n ${rem<0?'neg':''}">${fm(rem)}</td><td class="n">${fm(tot)}</td></tr>`}
+return h+'<tr class="ft"><th></th>'+CATS.map(c=>`<td></td><td class="n">${sm(e.filter(x=>x.c==c[0])).toFixed(2)}</td>`).join('')+`<td class="n">${tot.toFixed(2)}</td><td></td><td></td></tr></table></div>`}
+
+function acc(){const v=ACC.map(k=>S.s[month+'|'+k]?.a||0),t=v.reduce((p,x)=>p+x,0),pm=pmo(-1),has=ACC.some(k=>S.s[pm+'|'+k]),pt=ACC.reduce((p,k)=>p+(S.s[pm+'|'+k]?.a||0),0);
+return `<div class="card hero"><small>Vermögen am 1. ${$('ml').textContent}</small><b>${fm(t)}</b>${has?`<div class="hs"><span>${t>=pt?'▲':'▼'} ${fm(Math.abs(t-pt))} zum Vormonat</span></div>`:''}</div><div class="card"><h3>Kontostände am Monatsersten</h3>`+ACC.map((k,j)=>`<label class="ln"><span>${AE[k]} ${k}</span><input inputmode="decimal" data-k="${k}" value="${v[j]||''}" placeholder="0,00"></label>`).join('')+'</div>'}
+function render(){if(document.activeElement?.dataset?.k&&$('v').contains(document.activeElement))return;const[y,m]=month.split('-'),e=E(),i=I();
+$('ml').textContent=new Date(y,m-1).toLocaleDateString('de-DE',{month:'long',year:'numeric'});
+document.querySelectorAll('nav [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v==view));document.body.dataset.v=view;
+$('v').innerHTML=({o:()=>(cfg.token?'':'<div class="card" data-sync="1" style="cursor:pointer">☁️ Auf allen Geräten nutzen – hier tippen</div>')+over(e,i),l:()=>'<div class="card">'+list(e,i)+'</div>',t:()=>table(e),k:acc})[view]()}
+function openSheet(o={}){sh={id:'',type:'e',amt:'',c:'food',date:month==ds(0).slice(0,7)?ds(0):month+'-01',t:'',...o};draw();$('ov').classList.add('on')}
+function draw(){$('sheet').innerHTML=`<div class="sg"><button data-type="e" class="${sh.type=='e'?'on':''}">Ausgabe</button><button data-type="i" class="${sh.type=='i'?'on':''}">Einnahme</button></div><div class="amt">${sh.amt||'0'} €</div>`
++(sh.type=='e'?'<div class="cg">'+CATS.map(c=>`<button data-cat="${c[0]}" class="${sh.c==c[0]?'on':''}"><span>${EM[c[0]]}</span>${SH[c[0]]}</button>`).join('')+'</div>':'')
++`<div class="dr"><button data-dd="0" class="${sh.date==ds(0)?'on':''}">Heute</button><button data-dd="1" class="${sh.date==ds(1)?'on':''}">Gestern</button><input type="date" value="${sh.date}"></div><input id="sn" placeholder="Notiz (optional)" value="${esc(sh.t)}">`
++'<div class="pad">'+['1','2','3','4','5','6','7','8','9',',','0','⌫'].map(k=>`<button data-k="${k}">${k}</button>`).join('')+`</div><div class="ac">${sh.id?'<button id="sdel">🗑</button>':''}<button id="sok">Speichern</button></div>`}
+function commit(){const a=parseFloat(sh.amt.replace(',','.'));if(!(a>0))return;const u=Date.now(),[y,m,d]=sh.date.split('-'),id=uid(),mk=y+'-'+m,t=$('sn').value.trim();
+if(sh.id){const o=S.e[sh.id]||S.i[sh.id];o.x=1;o.u=u}
+if(sh.type=='i')S.i[id]={id,m:mk,d:+d,t:t||'Einnahme',a,u};else S.e[id]={id,m:mk,d:+d,c:sh.c,t,a,u};
+month=mk;$('ov').classList.remove('on');save()}
+$('sheet').oninput=ev=>{if(ev.target.id=='sn')sh.t=ev.target.value};
+$('sheet').onchange=ev=>{if(ev.target.type=='date'&&ev.target.value){sh.date=ev.target.value;draw()}};
+$('sheet').onclick=ev=>{const b=ev.target.closest('button');if(!b)return;const d=b.dataset;
+if(d.type)sh.type=d.type;else if(d.cat)sh.c=d.cat;else if(d.dd!=null)sh.date=ds(+d.dd);
+else if(d.k){let a=sh.amt;if(d.k=='⌫')a=a.slice(0,-1);else if(d.k==','){if(!a.includes(','))a=(a||'0')+','}else if(a.length<9&&!(a.includes(',')&&a.split(',')[1].length>=2))a=(a=='0'?'':a)+d.k;sh.amt=a}
+else if(b.id=='sok')return commit();
+else if(b.id=='sdel'){const o=S.e[sh.id]||S.i[sh.id];o.x=1;o.u=Date.now();$('ov').classList.remove('on');return save()}else return;draw()};
+$('ov').onclick=ev=>{if(ev.target.id=='ov')$('ov').classList.remove('on')};$('add').onclick=()=>openSheet();
+$('v').onclick=ev=>{if(ev.target.closest('[data-sync]'))return $('sy').click();const s=ev.target.closest('[data-id]');if(s){const id=s.dataset.id,r=S.e[id]||S.i[id];return openSheet({id,type:S.e[id]?'e':'i',amt:String(r.a).replace('.',','),c:r.c||'food',date:r.m+'-'+p2(r.d||1),t:r.t||''})}
+const c=ev.target.closest('td[data-c]');if(c)openSheet({c:c.dataset.c,date:month+'-'+p2(c.dataset.d)})};
+$('v').onchange=ev=>{const k=ev.target.dataset.k;if(!k)return;S.s[month+'|'+k]={a:parseFloat(ev.target.value.replace(',','.'))||0,u:Date.now()};save()};
+document.querySelectorAll('nav [data-v]').forEach(b=>b.onclick=()=>{view=b.dataset.v;render();scrollTo(0,0)});
+$('pm').onclick=()=>{month=pmo(-1);render()};$('nm').onclick=()=>{month=pmo(1);render()};
+// ---- Sync (GitHub-Repo als Speicher) ----
+const enc=s=>btoa(unescape(encodeURIComponent(s))),dec=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
+const gh=(m,b)=>fetch(`https://api.github.com/repos/${cfg.repo}/contents/${cfg.path||'budget.json'}`,{method:m,cache:'no-store',headers:{Authorization:'Bearer '+cfg.token,Accept:'application/vnd.github+json'},body:b?JSON.stringify(b):undefined});
+function merge(R){for(const t of['e','i','s'])for(const k in R[t]||{})if(!S[t][k]||R[t][k].u>S[t][k].u)S[t][k]=R[t][k]}
+async function sync(n=0){if(!cfg.token)return;$('sy').textContent='…';
+try{await setup();const r=await gh('GET');let sha,rt;if(r.ok){const j=await r.json();sha=j.sha;rt=dec(j.content);merge(JSON.parse(rt))}else if(r.status!=404)throw r.status;
+localStorage.hb=JSON.stringify(S);render();const txt=JSON.stringify(S);
+if(txt!=rt){const p=await gh('PUT',{message:'sync',content:enc(txt),sha});if((p.status==409||p.status==422)&&n<3)return sync(n+1);if(!p.ok)throw p.status}
+$('sy').textContent='✓'}catch(e){$('sy').textContent='⚠ '+e}}
+async function setup(){if(cfg.repo)return;const H={Authorization:'Bearer '+cfg.token,Accept:'application/vnd.github+json'},A='https://api.github.com/';
+const u=await fetch(A+'user',{headers:H});if(!u.ok)throw u.status;const L=(await u.json()).login,n='haushaltsbuch-daten',r=await fetch(`${A}repos/${L}/${n}`,{headers:H});
+if(r.status==404){const c=await fetch(A+'user/repos',{method:'POST',headers:H,body:JSON.stringify({name:n,private:true,auto_init:true,description:'Haushaltsbuch Daten'})});if(!c.ok)throw c.status}else if(!r.ok)throw r.status;
+cfg.repo=L+'/'+n;localStorage.hbcfg=JSON.stringify(cfg)}
+function dlg(){$('dg').innerHTML=cfg.token?`<p><b>✓ Verbunden</b><br><small>${esc(cfg.repo||'')}</small></p><button class="pri" id="d1">Jetzt synchronisieren</button><button id="d2">📱 Anderes Gerät koppeln</button><button id="d3">Trennen</button><button id="d0">Schließen</button>`:`<p><b>☁️ Synchronisieren</b></p><p>1. <a href="https://github.com/settings/tokens/new?scopes=repo&description=Haushaltsbuch" target="_blank">Token erstellen</a> – unten „Generate token“ tippen und den Token kopieren.</p><p>2. Hier einfügen:</p><input id="gt" placeholder="ghp_…"><button class="pri" id="d4">Verbinden</button><button id="d0">Schließen</button>`}
+$('dg').onclick=async ev=>{const i=ev.target.id;if(i=='d0')$('dg').close();else if(i=='d1'){$('dg').close();sync()}
+else if(i=='d2'){const l=location.origin+location.pathname+'#k='+cfg.token;if(navigator.share)navigator.share({url:l,title:'Haushaltsbuch'}).catch(()=>{});else{await navigator.clipboard.writeText(l);alert('Link kopiert – auf dem anderen Gerät öffnen.')}}
+else if(i=='d3'){cfg={};localStorage.removeItem('hbcfg');dlg();render()}
+else if(i=='d4'){const t=$('gt').value.trim();if(!t)return;cfg={token:t};localStorage.hbcfg=JSON.stringify(cfg);$('dg').close();render();sync()}};
+$('sy').onclick=()=>{if(cfg.token)sync();else{dlg();$('dg').showModal()}};$('cf').onclick=()=>{dlg();$('dg').showModal()};
+addEventListener('online',()=>sync());document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync()});
+// ---- Excel-Export im Layout der Vorlage ----
+$('ex').onclick=async()=>{const[y,m]=month.split('-'),n=new Date(y,m,0).getDate(),e=E(),ic=I(),wb=new ExcelJS.Workbook(),ws=wb.addWorksheet(month);
+const col=c=>ws.getColumn(c).letter,fl=r=>({type:'pattern',pattern:'solid',fgColor:{argb:'FF'+r}}),EU='#,##0.00\\ [$€-1];[Red]\\-#,##0.00\\ [$€-1]',
+hd=(r,c,v,bg)=>{const z=ws.getCell(r,c);z.value=v;z.fill=fl(bg);z.font={bold:true,color:{argb:'FFFFFFFF'}};z.alignment={wrapText:true,horizontal:'center',vertical:'middle'}},
+bold=(r,c,v,f)=>{const z=ws.getCell(r,c);z.value=v;z.font={bold:true};if(f)z.fill=fl(f);return z};
+CATS.forEach((c,i)=>{ws.mergeCells(1,2+2*i,1,3+2*i);hd(1,2+2*i,c[1],'234F76');ws.getColumn(2+2*i).width=16;ws.getColumn(3+2*i).width=9});
+['Daily Total','Remaining','Total Spent'].forEach((v,i)=>{hd(1,20+i,v,'596984');ws.getColumn(20+i).width=13});
+ws.mergeCells(1,24,1,25);hd(1,24,'Einnahmen','84B1F7');ws.getColumn(24).width=18;ws.getColumn(25).width=14;ws.getColumn(1).width=4;ws.getRow(1).height=48;
+const slots=Math.max(9,ic.length),tr=slots+2,T=n+2;let rem=sm(ic),tot=0;
+for(let d=1;d<=n;d++){const r=d+1,de=e.filter(x=>x.d==d),dy=sm(de);rem-=dy;tot+=dy;hd(r,1,d,'234F76');
+CATS.forEach((c,i)=>{const l=de.filter(x=>x.c==c[0]);if(!l.length)return;ws.getCell(r,2+2*i).value=l.map(x=>x.t).filter(Boolean).join(', ');ws.getCell(r,3+2*i).value=l.length>1?{formula:l.map(x=>x.a).join('+'),result:sm(l)}:l[0].a});
+ws.getCell(r,20).value={formula:CATS.map((c,i)=>col(3+2*i)+r).join('+'),result:dy};
+ws.getCell(r,21).value={formula:d==1?`Y${tr}-T${r}`:`U${r-1}-T${r}`,result:rem};
+ws.getCell(r,22).value={formula:d==1?`T${r}`:`V${r-1}+T${r}`,result:tot};
+for(let c=2;c<=22;c++){const z=ws.getCell(r,c);if(r%2==0)z.fill=fl('EAEAEA');if(c>=20)z.numFmt=c==20?'0.00':EU;else if(c%2==1)z.numFmt='0.00'}}
+CATS.forEach((c,i)=>{const k=3+2*i,z=bold(T,k,{formula:`SUM(${col(k)}2:${col(k)}${n+1})`,result:sm(e.filter(q=>q.c==c[0]))},'99CCFF');z.numFmt='0.00'});
+bold(T,20,{formula:`SUM(T2:T${n+1})`,result:tot},'99CCFF').numFmt='0.00';
+for(let k=0;k<slots;k++){const r=k+2,z=ic[k];if(z){ws.getCell(r,24).value=z.t;ws.getCell(r,25).value=z.a}ws.getCell(r,25).numFmt='0.00';if(r%2==0){ws.getCell(r,24).fill=ws.getCell(r,25).fill=fl('EAEAEA')}}
+bold(tr,24,'Total');ws.getCell(tr,25).value={formula:`SUM(Y2:Y${tr-1})`,result:sm(ic)};
+const sh=tr+2;ws.mergeCells(sh,24,sh,25);hd(sh,24,'Savings (Stand am 1.)','84B1F7');let st=0;
+ACC.forEach((k,j)=>{const r=sh+1+j,v=S.s[month+'|'+k]?.a||0;st+=v;ws.getCell(r,24).value=k;ws.getCell(r,25).value=v;ws.getCell(r,25).numFmt='0.00';if(j%2==0)ws.getCell(r,24).fill=ws.getCell(r,25).fill=fl('EAEAEA')});
+bold(sh+7,24,'Total');ws.getCell(sh+7,25).value={formula:`SUM(Y${sh+1}:Y${sh+6})`,result:st};
+ws.views=[{state:'frozen',xSplit:1,ySplit:1}];
+const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([await wb.xlsx.writeBuffer()]));a.download=`Haushaltsbuch_${month}.xlsx`;a.click()};
+if(location.hash.startsWith('#k=')){cfg={token:location.hash.slice(3)};localStorage.hbcfg=JSON.stringify(cfg);history.replaceState(null,'',location.pathname)}
+render();sync();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+</script></body></html>
